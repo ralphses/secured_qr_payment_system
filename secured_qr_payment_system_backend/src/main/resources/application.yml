@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  config:
+    import: optional:classpath:certs/config.properties
+  mail:
+    password: hello
+    username: hello
+    port: 1025
+    host: localhost
+
+
+
+
