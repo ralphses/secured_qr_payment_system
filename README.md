@@ -36,7 +36,7 @@ Follow these steps to set up and run the project on your local machine.
 
         ```bash
         mvn clean install
-        java -jar target/cbn-approved-qr-payment.jar
+        java -jar target/secured_qr_backend_0.0.1-SNAPSHOT.jar
         ```
 
 3. **User Management Frontend:**
