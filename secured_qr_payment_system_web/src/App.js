@@ -16,6 +16,7 @@ import AllBusiness from "./pages/AllBusiness";
 import Activate from "./pages/Activate";
 import OurServicesPage from "./pages/OurServicesPage ";
 import Scanner from "./pages/Scan";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
   const isAuthenticated = localStorage.getItem("authenticated") === "true";
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/services" element={<OurServicesPage />} />
             <Route path="/scan" element={<Scanner />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route
                 path="/business"
                 element={<PrivateRoute element={<AllBusiness />} />}

@@ -15,6 +15,7 @@ const GenerateQR = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const token = localStorage.getItem("token"); // Retrieving the token from local storage
 
         const fetchUserBusinesses = async () => {
@@ -47,6 +48,7 @@ const GenerateQR = () => {
 
     const handleModalConfirm = () => {
         setShowModal(false);
+        navigate('/business/add');
         // Redirect to create add business page logic here
         console.log("Redirecting to add business page");
     };
@@ -101,7 +103,7 @@ const GenerateQR = () => {
                     <input
                         className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
                         type="text"
-                        placeholder="Item Name"
+                        placeholder="Item(s) - multiple items should be comma seperated"
                         value={itemName}
                         onChange={(e) => setItemName(e.target.value)}
                     />
@@ -109,7 +111,7 @@ const GenerateQR = () => {
                 <div>
           <textarea
               className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-              placeholder="Item Description"
+              placeholder="Item(s) Description"
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
           ></textarea>
@@ -121,6 +123,7 @@ const GenerateQR = () => {
                         placeholder="Total Amount"
                         value={totalAmount}
                         onChange={(e) => setTotalAmount(e.target.value)}
+                        min={1}
                     />
                 </div>
                 <div>

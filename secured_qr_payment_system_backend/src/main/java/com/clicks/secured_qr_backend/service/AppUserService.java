@@ -46,7 +46,7 @@ public class AppUserService {
                 .name(registrationRequest.name())
                 .email(email)
                 .password(passwordEncoder.encode(registrationRequest.password()))
-                .verified(false)
+                .verified(true)
                 .build();
 
         userRepository.save(appUser);

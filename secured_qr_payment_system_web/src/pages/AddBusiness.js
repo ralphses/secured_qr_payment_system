@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddBusiness = () => {
   const [section, setSection] = useState(1);
@@ -54,54 +56,97 @@ const AddBusiness = () => {
     setNumOfStaff(e.target.value);
   };
 
+  const validateSection1 = () => {
+    if (!businessName || !businessAddress || !businessCertificate || !nin) {
+      setModalMessage(
+        "All fields in Business details section are required and must be valid"
+      );
+      setShowModal(true);
+      return false;
+    }
+    return true;
+  };
+
   const handleNext = () => {
-    setSection(section + 1);
+    if (section === 1 && validateSection1()) {
+      setSection(section + 1);
+    }
   };
 
   const handlePrevious = () => {
     setSection(section - 1);
   };
 
+  const validateSection2 = () => {
+    if (
+      !businessManagerName ||
+      !businessManagerPhone ||
+      !yearCreated ||
+      !numOfStaff ||
+      isNaN(numOfStaff) ||
+      numOfStaff <= 0
+    ) {
+      setModalMessage(
+        "All fields in Business manager section are required and must be valid"
+      );
+      setShowModal(true);
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
+    // Section 1 validation
     if (section === 1) {
-      // Move to the next section
-      setSection(2);
+      if (validateSection1()) {
+        // Move to the next section
+        setSection(2);
+      }
     } else {
-      // Submit the form
-      const token = localStorage.getItem("token");
+      // Section 2 validation
+      if (validateSection2()) {
+        const token = localStorage.getItem("token");
 
-      const formData = new FormData();
+        // Create a FormData object to hold the form data
+        const formData = new FormData();
 
-      formData.append("name", businessName);
-      formData.append("address", businessAddress);
-      formData.append("businessCertificate", businessCertificate);
-      formData.append("nin", nin);
-      formData.append("businessManagerName", businessManagerName);
-      formData.append("businessManagerPhone", businessManagerPhone);
-      formData.append("yearCreated", yearCreated);
-      formData.append("numOfStaff", numOfStaff);
+        // Append data for business details
+        formData.append("name", businessName);
+        formData.append("address", businessAddress);
+        formData.append("businessCertificate", businessCertificate);
+        formData.append("nin", nin);
 
-      try {
-        const response = await axios.post(
-          "http://localhost:8080/client",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
+        // Append data for manager details
+        formData.append("businessManagerName", businessManagerName);
+        formData.append("businessManagerPhone", businessManagerPhone);
+        formData.append("yearCreated", yearCreated);
+        formData.append("numOfStaff", numOfStaff);
+
+        try {
+          // Make a POST request to the server
+          const response = await axios.post(
+            "http://localhost:8080/client",
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          // Check the response status
+          if (response.status === 201) {
+            // Business added successfully
+            setModalMessage("Business added successfully");
+            setStatus(true);
+            setShowModal(true);
           }
-        );
-
-        if (response.status === 201) {
-          // Business added successfully
-          setModalMessage("Business added successfully");
-          setStatus(true);
+        } catch (error) {
+          // Handle errors from the server
+          setModalMessage("Failed to add business");
           setShowModal(true);
         }
-      } catch (error) {
-        setModalMessage("Failed to add business");
-        setShowModal(true);
       }
     }
   };
@@ -183,29 +228,32 @@ const AddBusiness = () => {
             </div>
             <div>
               <input
+                type="number" // Update to tel type
                 className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-                type="text"
                 placeholder="Business Manager Phone"
                 value={businessManagerPhone}
                 onChange={handleBusinessManagerPhoneChange}
+                min={0}
+              />
+            </div>
+            <div>
+              <ReactDatePicker
+                selected={yearCreated} // Pass the selected date (yearCreated) to the DatePicker
+                onChange={(date) => setYearCreated(date)} // Set the selected date to the state
+                dateFormat="yyyy" // Set the date format to display only the year
+                showYearPicker
+                className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
+                placeholderText="Select Year"
               />
             </div>
             <div>
               <input
+                type="number" // Update to number type
                 className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-                type="text"
-                placeholder="Year Created"
-                value={yearCreated}
-                onChange={handleYearCreatedChange}
-              />
-            </div>
-            <div>
-              <input
-                className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-                type="text"
                 placeholder="Number of Staff"
                 value={numOfStaff}
                 onChange={handleNumOfStaffChange}
+                min={0}
               />
             </div>
           </>

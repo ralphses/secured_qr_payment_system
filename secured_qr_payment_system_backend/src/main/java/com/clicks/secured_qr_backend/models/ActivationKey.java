@@ -18,15 +18,26 @@ import java.time.Instant;
 @NoArgsConstructor
 public class ActivationKey {
 
+    // Primary key annotation indicating that 'id' is the primary key for the entity.
     @Id
+    // GeneratedValue annotation to specify that the 'id' is automatically generated.
     @GeneratedValue
     private Long id;
 
+    // Token associated with the activation key.
     private String token;
-    private String email;
-    private Instant expiresAt;
-    private Instant createdAt;
-    private boolean used;
-    private TokenPurpose purpose;
 
-}
+    // Email address associated with the activation key.
+    private String email;
+
+    // Date and time when the activation key expires.
+    private Instant expiresAt;
+
+    // Date and time when the activation key was created.
+    private Instant createdAt;
+
+    // Boolean flag indicating whether the activation key has been used.
+    private boolean used;
+
+    // Enum representing the purpose of the token (e.g., activation, reset password).
+    private TokenPurpose purpose;

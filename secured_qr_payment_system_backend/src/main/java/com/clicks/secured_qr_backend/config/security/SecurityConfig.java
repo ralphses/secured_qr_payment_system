@@ -50,6 +50,9 @@ public class SecurityConfig {
                     "/auth/login",
                     "/auth/**",
                     "/image/qr",
+                    // "/api/v1/qr",
+                    "/payment/**",                    
+                    "/payment/confirm",
             };
 
     /**

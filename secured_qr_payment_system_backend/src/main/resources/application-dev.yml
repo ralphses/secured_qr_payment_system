@@ -8,9 +8,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
-special:
-  value: ${SPECIAL_NUMBER}
+

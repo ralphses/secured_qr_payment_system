@@ -9,6 +9,17 @@ spring:
     port: 1025
     host: localhost
 
+client:
+  web: http://localhost:3000
+  scanner: http://localhost:3001
+
+flutterwave:
+  secrete: ${SECRETE_KEY}
+  flutterwaveEncKey: ${FLUTTERWAVE_ENC_KEY}
+  publicKey: ${FLW_PUBLIC_KEY}
+
+special:
+  value: ${SPECIAL_NUMBER}
 
 
 

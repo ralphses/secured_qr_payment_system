@@ -3,6 +3,7 @@ package com.clicks.secured_qr_backend.controller;
 import com.clicks.secured_qr_backend.dtos.ClientPaymentDto;
 import com.clicks.secured_qr_backend.dtos.CustomResponse;
 import com.clicks.secured_qr_backend.dtos.QrCodeResponse;
+import com.clicks.secured_qr_backend.dtos.requests.ConfirmPaymentRequest;
 import com.clicks.secured_qr_backend.dtos.requests.NewPaymentRequest;
 import com.clicks.secured_qr_backend.service.ClientPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,17 @@ public class ClientPaymentController {
         return ResponseEntity.status(OK).body(new CustomResponse(true, Map.of("codes", qrCodeResponses)));
     }
 
-    @GetMapping("/{reference}")
+    @PostMapping("/confirm")
+    public ResponseEntity<CustomResponse> confirm(@RequestBody ConfirmPaymentRequest confirmPaymentRequest) {
+        System.out.println(confirmPaymentRequest);
+        String link = clientPaymentService.confirm(confirmPaymentRequest);
+        return ResponseEntity.status(CREATED).body(new CustomResponse(true, Map.of("link", link)));
+    }
+
+    @GetMapping("/get/{reference}")
     public ResponseEntity<CustomResponse> checkout(@PathVariable String reference) {
         ClientPaymentDto paymentDto = clientPaymentService.checkout(reference);
+        System.out.println(paymentDto);
         return ResponseEntity.status(OK).body(new CustomResponse(true, Map.of("payment", paymentDto)));
     }
 

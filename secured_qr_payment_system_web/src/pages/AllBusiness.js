@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Dashboard() {
   const [businesses, setBusinesses] = useState([]);
@@ -11,6 +13,7 @@ export default function Dashboard() {
   const [itemsPerPage] = useState(5);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [businessToDelete, setBusinessToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBusinesses = async () => {
@@ -89,6 +92,26 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-4">
             Your Registered Businesses
           </h1>
+
+          {businesses.length === 0 ? (
+            <p className="text-gray-500 mb-4">
+              No business registered yet,{" "}
+              <button
+                onClick={() => navigate('/business/add')}
+                className="text-indigo-600 hover:text-indigo-900"
+              >
+                click here to add one
+              </button>
+              .
+            </p>
+          ) : (
+            <button
+              onClick={() => navigate('/business/add')}
+              className="bg-indigo-600 text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 mb-4"
+            >
+              Register New Business
+            </button>
+          )}
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>

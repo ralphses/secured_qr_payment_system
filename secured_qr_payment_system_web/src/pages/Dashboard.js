@@ -122,12 +122,7 @@ const Dashboard = () => {
                       >
                         Download
                       </button>
-                      <button
-                        onClick={() => handleCopyToClipboard(qrCode.checkout)}
-                        className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Copy URL
-                      </button>
+                     
                     </td>
                   </tr>
                 ))}

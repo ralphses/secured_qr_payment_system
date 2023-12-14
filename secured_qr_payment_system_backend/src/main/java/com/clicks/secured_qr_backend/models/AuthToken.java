@@ -36,6 +36,4 @@ public class AuthToken {
     private Boolean isValid;
     @DateTimeFormat
     private Instant generatedAt;
-
-
 }

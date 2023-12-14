@@ -21,6 +21,7 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 public class QRDataController {

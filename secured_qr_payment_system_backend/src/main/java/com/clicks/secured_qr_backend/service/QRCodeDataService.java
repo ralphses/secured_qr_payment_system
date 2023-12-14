@@ -63,22 +63,47 @@ public class QRCodeDataService {
         return getQrCodeResponse(qrCodeDto, client);
     }
 
+    /**
+     * Retrieves the API key from the Authorization header in the HttpServletRequest.
+     *
+     * @param request The HttpServletRequest object.
+     * @return The API key extracted from the Authorization header.
+     * @throws InvalidParamsException If the Authorization header is missing or malformed.
+     */
     private String getApiKey(HttpServletRequest request) {
+        // Retrieve the Authorization header from the request.
         String key = request.getHeader("Authorization");
+
+        // Check if the header is missing or malformed.
         if (key == null || !key.startsWith("Bearer API-")) {
             throw new InvalidParamsException("Invalid Authorization header");
         }
+
+        // Return the extracted API key.
         return key;
     }
 
+    /**
+     * Decrypts and extracts the username and client identifier from the provided API key.
+     *
+     * @param key The API key to decrypt and parse.
+     * @return An array containing the username and client identifier.
+     * @throws InvalidParamsException If the API key is invalid or cannot be decrypted.
+     */
     private String[] getUsernameAndClient(String key) {
         try {
+            // Decrypt the API key and remove the "API-" prefix.
             String decryptedKey = apiKeyUtils.decrypt(key.substring(7).replace("API-", ""));
+
+            // Split the decrypted key into username and client identifier.
             return decryptedKey.split(REF_SEP);
+
         } catch (Exception e) {
+            // Handle exceptions related to invalid API keys or decryption errors.
             throw new InvalidParamsException("Invalid API key");
         }
     }
+
 
     /**
      * Creates a new QR code and associated data for a given client.
@@ -199,20 +224,36 @@ public class QRCodeDataService {
         return clientService.findByReference(client);
     }
 
+    /**
+     * Verifies the content of a QR code from the provided MultipartFile (in this case expecting an image).
+     *
+     * @param qrCode The MultipartFile containing the QR code image.
+     * @return The verification result based on the decoded QR code content.
+     * @throws InvalidParamsException If the image does not contain a valid QR code.
+     * @throws ResourceNotFoundException If the user is unauthorized to perform the verification.
+     */
     public String verifyImage(MultipartFile qrCode) {
         try {
-
+            // Read the QR code image from the MultipartFile.
             BufferedImage image = ImageIO.read(qrCode.getInputStream());
+
+            // Create a BinaryBitmap from the image using a HybridBinarizer.
             BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(image)));
+
+            // Decode the QR code using the MultiFormatReader.
             Result result = new MultiFormatReader().decode(binaryBitmap);
 
+            // Verify the decoded QR code content.
             return verify(new VerifyQrCodeRequest(result.getText()));
 
         } catch (UnauthorizedUserException exception) {
+            // Translate UnauthorizedUserException to ResourceNotFoundException for consistency.
             throw new ResourceNotFoundException(exception.getMessage());
-        }
-        catch (IOException | NotFoundException | NullPointerException e) {
+
+        } catch (IOException | NotFoundException | NullPointerException e) {
+            // Handle exceptions related to invalid QR codes or image processing errors.
             throw new InvalidParamsException("Image does not contain a valid QR code");
         }
     }
+
 }

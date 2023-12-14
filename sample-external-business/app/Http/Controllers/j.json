@@ -1,0 +1,16 @@
+{
+    "success": true,
+    "data": {
+        "codes": [
+            {
+                "link": "http://localhost:8080/qr/c6839310-8658-49bf-835e-1cbd00c1018f",
+                "reference": "c6839310-8658-49bf-835e-1cbd00c1018f",
+                "checkout": "http://localhost:3001/checkout?reference=79b1d6ae-c2ef-4109-bc0c-c1ef34535eda",
+                "createdAt": "14-12-2023 7:5am",
+                "itemName": "Mango juice",
+                "amount": 200.0,
+                "client": "Name"
+            }
+        ]
+    }
+}
