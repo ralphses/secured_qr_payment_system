@@ -113,6 +113,23 @@ Follow these steps to set up and run the project on your local machine.
    - Access the external business website at [http://localhost:8000](http://localhost:8000) in your browser.
    - Integrate with CBN-approved QR code generation via API calls using the provided API key.
 
+## Screenshots
+
+![Merchant QR code Management](/screenshots/home.png)
+*Caption: Screenshot of the CBN QR Code Platform.*
+
+![Merchant QR code Management](/screenshots/home%202.png)
+*Caption: Screenshot of the CBN QR Code Platform showing QR code generation interface*
+
+![QR Code Scanner](/screenshots/scanner.png)
+*Caption: Screenshot of the CBN QR Code Scanner Interface.*
+
+![QR Code Scanner](/screenshots/scanner%202.png)
+*Caption: Screenshot of the CBN QR Code Scanner Interface showing unapproved QR code.*
+
+![QR Code Scanner](/screenshots/scanner%203.png)
+*Caption: Screenshot of the CBN QR Code Scanner Interface showing an invalid QR Code.*
+
 ## Contributing
 
 Feel free to contribute to the project!
