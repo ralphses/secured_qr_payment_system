@@ -116,19 +116,19 @@ Follow these steps to set up and run the project on your local machine.
 ## Screenshots
 
 ![Merchant QR code Management](/screenshots/home.png)
-*Caption: Screenshot of the CBN QR Code Platform.*
+*Screenshot of the CBN QR Code Platform.*
 
 ![Merchant QR code Management](/screenshots/home%202.png)
-*Caption: Screenshot of the CBN QR Code Platform showing QR code generation interface*
+*Screenshot of the CBN QR Code Platform showing QR code generation interface*
 
 ![QR Code Scanner](/screenshots/scanner.png)
-*Caption: Screenshot of the CBN QR Code Scanner Interface.*
+*Screenshot of the CBN QR Code Scanner Interface.*
 
 ![QR Code Scanner](/screenshots/scanner%202.png)
-*Caption: Screenshot of the CBN QR Code Scanner Interface showing unapproved QR code.*
+*Screenshot of the CBN QR Code Scanner Interface showing unapproved QR code.*
 
 ![QR Code Scanner](/screenshots/scanner%203.png)
-*Caption: Screenshot of the CBN QR Code Scanner Interface showing an invalid QR Code.*
+*Screenshot of the CBN QR Code Scanner Interface showing an invalid QR Code.*
 
 ## Contributing
 
